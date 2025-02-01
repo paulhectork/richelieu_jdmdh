@@ -110,9 +110,10 @@ def analyze_digraph(query_item:Query, G:nx.DiGraph):
     idx, val = zip(*deg)  # separate 1st element (id of the node) from second (degree of the node)
     s_deg = pd.Series(val, idx)
     s_deg = s_deg.loc[ s_deg.index.isin(query_item.df.id_from) ]  # discard all nodes that are in `df.id_to`, since we want to study the degree from qualifier to iconography only.
-    out["deg_from_min"] = s_deg.min()
-    out["deg_from_max"] = s_deg.max()
+    out["deg_from_min"]       = s_deg.min()
+    out["deg_from_max"]       = s_deg.max()
     out["deg_from_amplitude"] = s_deg.max() - s_deg.min()
+    out["deg_from_mode"]      = s_deg.mode().to_list()
 
     id_max = s_deg.loc[ s_deg.eq(s_deg.max()) ].index.to_series().to_list()  # array of "id_from" with the maximum centrality
     titles_max = query_item.df.loc[query_item.df.id_from.isin(id_max), "title_from"].drop_duplicates().to_list()
