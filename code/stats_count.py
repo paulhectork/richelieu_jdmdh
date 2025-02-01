@@ -189,8 +189,8 @@ def sql_to_df(query_item:Query) -> Query:
 
 def stats_for_query_item(query_item:Query) -> Query:
     """make statistics"""
-    out = { "title": query_item.basename, "min_val": None, "max_val": None, "amplitude": None, "median": None, "mean": None, "quantiles": None, "counts": None }
-
+    out = {}
+    out["title"]     = query_item.basename
     out["min_val"]   = query_item.df.count_result.min()
     out["max_val"]   = query_item.df.count_result.max()
     out["mean"]      = query_item.df.count_result.mean()
